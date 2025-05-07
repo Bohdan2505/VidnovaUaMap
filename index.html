@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaflet Map with GeoJSON</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    
+    
+    
     <style>
         body {
             font-family: Arial, sans-serif;
         }
 
-        #map {
-            width: 100%;
-            height: 900px;
-        }
+    #map { position:absolute; top:0; left:0; bottom:0; right:0; height:100%; width:100%; z-index: 1;} 
 
         .popup {
             width: 90%;
@@ -136,7 +137,8 @@
     
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="data_json.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/supercluster@8.0.0/dist/supercluster.min.js"></script>
     <script>
      
 
@@ -198,31 +200,8 @@ fullscreenContainer.addEventListener('click', (event) => {
     }
 });
 
-
-
-loadData().then(myData => {
-  if (myData) {
-
-
-
-    var map = L.map('map').setView([50, 30], 5);
-
-        
-
-    L.tileLayer('https://tile.openstreetmap.org.ua/styles/osm-bright/{z}/{x}/{y}.png', {
-        maxZoom: 18
-    }).addTo(map);
-
-
-    data_geojson = convertToGeoJSON(myData);
- 
-    var geojsonLayer = L.geoJSON(data_geojson, {
-            onEachFeature: function (feature, layer) {
-                
-                if (feature.properties) {
-                    layer.bindPopup(
-                        
-                    `<div class="popup">
+function create_info_window_for_feature(feature) {
+ return   `<div class="popup">
                                     <h1>${feature.properties.Tittle}</h1>
                                     <div class="photo-grid">
                                         <img src="${feature.properties.Link_photo_1}" alt="Photo 1" class="large thumbnail" onclick="view_fullscreen('${feature.properties.Link_photo_1}')">
@@ -240,16 +219,197 @@ loadData().then(myData => {
                                     <hr>
 
                                     <h4>Обмін відбувався: ${feature.properties.Begin_date} - ${feature.properties.End_date}</h4>
-                                </div>`
-                    );
-                }
-            }
-        }).addTo(map);
+                                </div>`}
 
-        map.fitBounds(geojsonLayer.getBounds());
+loadData().then(myData => {
+  if (myData) {
+
+
+
+    var map = L.map('map').setView([49, 32], 7);
+
+        
+
+    L.tileLayer('https://tile.openstreetmap.org.ua/styles/osm-bright/{z}/{x}/{y}.png', {
+        maxZoom: 18
+    }).addTo(map);
+
+
+    data_geojson = convertToGeoJSON(myData);
+    
+    
+function splitGeoJSONByYear(inputGeoJSON, dateField) {
+    const featuresByYear = {};
+
+    inputGeoJSON.features.forEach(feature => {
+        if (!feature.properties || !feature.properties[dateField]) {
+            return; // Пропускаємо об'єкти без дати
+        }
+        
+        const dateParts = feature.properties[dateField].split(".");
+        if (dateParts.length !== 3) {
+            return; // Пропускаємо некоректні дати
+        }
+        
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1;
+        const year = parseInt(dateParts[2], 10);
+        
+        const dateValue = new Date(year, month, day);
+        if (isNaN(dateValue)) {
+            return; // Пропускаємо некоректні дати
+        }
+        
+        if (!featuresByYear[year]) {
+            featuresByYear[year] = {
+                type: "FeatureCollection",
+                features: []
+            };
+        }
+        
+        featuresByYear[year].features.push(feature);
+    });
+
+    return featuresByYear;
+}
+
+
+function parseGeoJSONToMarkers(geojson, targetArray, year) {
+options = {}
+ if (year_markers_style[year] != undefined || year_markers_style[year].length != 0) {
+  options = year_markers_style[year];
+ }
+
+  return L.geoJSON(geojson, {
+    pointToLayer: function (feature, latlng) {
+      const marker = L.circleMarker(latlng, options).bindPopup(create_info_window_for_feature(feature));
+      targetArray.push(marker);
+    }
+  });
+}
+
+
+function addGeoJSONToMap(geoJSONByYear, map) {
+
+    const layerControl = L.control.layers(null, null, { collapsed: false }).addTo(map);
+    
+    Object.keys(geoJSONByYear).forEach(year => {
+    parseGeoJSONToMarkers(geoJSONByYear[year], marker_groups[year], year)
+    
+
+        layerControl.addOverlay(dummyLayers[year], `Обміни. ${year} рік`);
+        
+        
+    });
+
+}
+
+
+let year_markers_style = {
+    "2022": {
+    radius: 8,
+    fillColor: "#ffeb52",
+    color: "#fad200",
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 1
+},
+    "2023" : {
+    radius: 8,
+    fillColor: "#ffc943",
+    color: "#e8a302",
+    weight: 2,
+    opacity: 2,
+    fillOpacity: 1
+},
+    "2024" : {
+    radius: 8,
+    fillColor: "#9aaeff",
+    color: "#6061ff",
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 1
+},
+    "2025" : {
+    radius: 8,
+    fillColor: "#5c4aff",
+    color: "#312599",
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 1
+},
+    "2026" : {},
+    "2027" : {},
+    "2028" : {},
+    "2029" : {},
+    "2030" : {},
+}
+
+let marker_groups = {
+    "2022" : [],
+    "2023" : [],
+    "2024" : [],
+    "2025" : [],
+    "2026" : [],
+    "2027" : [],
+    "2028" : [],
+    "2029" : [],
+    "2030" : [],
+}
+
+
+let dummyLayers = {
+    "2022" : L.layerGroup(),
+    "2023" : L.layerGroup(),
+    "2024" : L.layerGroup(),
+    "2025" : L.layerGroup(),
+    "2026" : L.layerGroup(),
+    "2027" : L.layerGroup(),
+    "2028" : L.layerGroup(),
+    "2029" : L.layerGroup(),
+    "2030" : L.layerGroup(),
+}
+ 
+ const markerCluster = L.markerClusterGroup().addTo(map);
+ 
+  const result = splitGeoJSONByYear(data_geojson, "End_date");
+addGeoJSONToMap(result, map);
+
+
+map.on('overlayremove', function(e) {
+
+for (x in marker_groups) {
+
+        if (e.layer === dummyLayers[x]) {
+        marker_groups[x].forEach(m => markerCluster.removeLayer(m));
+        }
+    }
+});
+
+
+map.on('overlayadd', function(e) {
+ for (x in marker_groups) {
+
+    if (e.layer === dummyLayers[x]) {
+    console.log(x)
+    marker_groups[x].forEach(m => markerCluster.addLayer(m));
+  }
+  }
+});
+
+
+for (x in marker_groups) {
+    if (marker_groups[x] != undefined || marker_groups[x].length != 0) {
+        dummyLayers[x].addTo(map);
+    }
+};
+
+
+        // map.fitBounds(geojsonLayer.getBounds());
 
 
   }
+
 });
 
 
