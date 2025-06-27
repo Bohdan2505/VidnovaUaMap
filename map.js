@@ -238,7 +238,7 @@ loadData().then(myData => {
 
     var map = L.map('map').setView([49, 32], 7);
 
-        
+        map.attributionControl.addAttribution('<a href="https://www.instagram.com/ukrainian.renaissance_ngo" target="_blank"> ГО "Українське відродження" | </a> <a href="https://vidnova.org.ua/" target="_blank"> ВідНОВА:UA | </a> Основа карти: <a href="https://openstreetmap.org.ua/" target="_blank"> OpenStreetMap Україна | </a> <a href="https://www.openstreetmap.org/copyright" target="_blank"> &copy; OpenStreetMap contributors</a>');
 
     L.tileLayer('https://tile.openstreetmap.org.ua/styles/osm-bright/{z}/{x}/{y}.png', {
         maxZoom: 18
