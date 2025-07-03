@@ -1,3 +1,27 @@
+const fullscreenContainer = document.getElementById('fullscreen-container');
+const fullscreenImage = document.getElementById('fullscreen-image');
+const closeButton = document.getElementById('close-btn');
+
+
+function view_fullscreen(src) {
+    fullscreenImage.src = src;
+    fullscreenContainer.style.display = 'block';
+};
+
+
+// Close fullscreen when close button is clicked
+closeButton.addEventListener('click', () => {
+    fullscreenContainer.style.display = 'none';
+});
+
+// Optional: Close fullscreen when clicked outside the image
+fullscreenContainer.addEventListener('click', (event) => {
+    if (event.target === fullscreenContainer) {
+        fullscreenContainer.style.display = 'none';
+    }
+});
+
+
 function parseDate(ukrDate) {
   const [day, month, year] = ukrDate.split('.').map(Number);
   return new Date(year, month - 1, day);
@@ -79,19 +103,32 @@ function openInfoWindowMobile(feature) {
 if (check_string_not_empty(feature.properties.Link_photo_4_width)) {
     
   info_window_html += `<section class="main-photo">
-      <img src="${feature.properties.Link_photo_4_width}" alt="Групове фото" />
+      <img src="${feature.properties.Link_photo_4_width}" alt="Групове фото" onclick="view_fullscreen('${feature.properties.Link_photo_4_width}')" />
     </section>`
 }
 
 if (check_string_not_empty(feature.properties.Partner_Name)) {
-  
-  info_window_html += `<section class="organizer">
-      <a href="${feature.properties.Partner_link}"><img src="images/icon-group.png" alt="Організатор" class="icon-img" /></a>
+  if (check_string_not_empty(feature.properties.Partner_link)) {
+     info_window_html += `<section class="organizer">
+      <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" /></a>
       <div>
-        <a href="${feature.properties.Partner_link}">${feature.properties.Partner_Name}<br />
+        <a href="${feature.properties.Partner_link}" target="_blank">${feature.properties.Partner_Name}<br />
         організовували обмін</a>
       </div>
     </section>`
+    
+  }
+  else {
+    
+    info_window_html += `<section class="organizer">
+      <img src="images/icon-group.png" alt="Організатор" class="icon-img" />
+      <div>
+        ${feature.properties.Partner_Name}<br />
+        організовували обмін</a>
+      </div>
+    </section>`
+  }
+ 
   
 }
 
@@ -130,7 +167,7 @@ if (check_string_not_empty(feature.properties.Official_site) == true || check_st
     if (check_string_not_empty(feature.properties.Link_photo_3) == true) {
       
       info_window_html += `<div class="link-photo">
-        <img src="${feature.properties.Link_photo_3}" alt="Фото учасників" />
+        <img src="${feature.properties.Link_photo_3}" alt="Фото учасників" onclick="view_fullscreen('${feature.properties.Link_photo_3}')" />
       </div>`
     }
       
@@ -145,12 +182,12 @@ if (check_string_not_empty(feature.properties.Link_photo_1) == true || check_str
   
   if (check_string_not_empty(feature.properties.Link_photo_1) == true) {
       
-      info_window_html += `<img src="${feature.properties.Link_photo_1}" alt="Фотографія 1" />`
+      info_window_html += `<img src="${feature.properties.Link_photo_1}" alt="Фотографія 1" onclick="view_fullscreen('${feature.properties.Link_photo_1}')" />`
     }
       
        if (check_string_not_empty(feature.properties.Link_photo_1) == true) {
       
-      info_window_html += `<img src="${feature.properties.Link_photo_2}" alt="Фотографія 2" />`
+      info_window_html += `<img src="${feature.properties.Link_photo_2}" alt="Фотографія 2" onclick="view_fullscreen('${feature.properties.Link_photo_2}')" />`
     }
   
     info_window_html += `</section>`

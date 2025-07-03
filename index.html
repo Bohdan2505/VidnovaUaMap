@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+<!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> -->
+<link rel="shortcut icon" type="image/png" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851cf9e598324f66f6a358_optimized" sizes="16x16">
+<link rel="shortcut icon" type="image/png" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851cfb74a150d307efebce_optimized" sizes="32x32">
+<link rel="shortcut icon" type="image/png" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851d0074a150d307efebec_optimized" sizes="96x96">
+<link rel="apple-touch-icon" sizes="120x120" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851d0174a150d307efec04_optimized">
+<link rel="apple-touch-icon" sizes="180x180" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851d47e598324f66f6a499_optimized">
+<link rel="apple-touch-icon" sizes="152x152" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851d02e598324f66f6a388_optimized">
+<link rel="apple-touch-icon" sizes="167x167" href="https://res2.weblium.site/res/644e49cc8417f2000df16812/66851d4625b1893e83d91ec9_optimized">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Карта обмінів ВідНОВА:UA</title>
@@ -137,6 +145,48 @@
     width: 15em;
 }
 
+
+    /* Style for the fullscreen container */
+.fullscreen-container {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Close button */
+#close-btn {
+    position: absolute;
+      top: 0.5em;
+      right: 0.8em;
+      font-size: 3em;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+}
+
+#close-btn:hover {
+      color: #d00;
+    }
+
+/* Style for the fullscreen image */
+#fullscreen-image {
+    max-width: 95%;
+    max-height: 95%;
+    position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+}
+
     </style>
 </head>
 <body>
@@ -154,12 +204,12 @@
   
   
   
-   <!-- <div class="fullscreen-container" id="fullscreen-container">
-        <span id="close-btn">&times;</span>
+   <div class="fullscreen-container" id="fullscreen-container">
+        <span id="close-btn">✖</span>
         <img id="fullscreen-image" src="" alt="Fullscreen Image">
     </div>
 
-    -->
+    
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>

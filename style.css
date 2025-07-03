@@ -49,20 +49,20 @@ body {
 }
 
 .page-wrapper {
-  max-width: 400px;
+  max-width: 30em;
   width: 100%;
 /*   padding: 1em; */
   margin: 0 auto;
-  background: #ffd73a;
-  border-radius: 40px;
+  background: rgba(253, 215, 56, 1.0);  
+  border-radius: 3em;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.1);
 }
 
 
 .top-header {
   background: white;
-  border-bottom: 5px solid #ffd73a;
+  border-bottom: 0.5em solid #ffd73a;
 /*   border-radius: 0 0 40px 40px; */
   padding: 0.7em;
 }
@@ -83,7 +83,7 @@ body {
 
 .logo {
   height: 100%;
-  max-height: 70px;
+  max-height: 6.5em;
 }
 
 .year {
@@ -95,7 +95,8 @@ body {
 }
 
 .location-dates {
-  background: #fff9d6;
+  background: #fee57e;
+  border: 0.2em solid #fff;
   border-radius: 4em;
   padding: 0.8em 1.5em;
   margin: 0.8em 0;
@@ -130,11 +131,14 @@ body {
 .main-photo img {
   width: 100%;
   border-radius: 2.5em;
-  margin: 20px 0;
+  margin: 2em 0;
+  cursor: pointer;
 }
 
 .organizer {
-  background: #fff9d6;
+  background: #fee57e;
+  border: 0.2em solid #fff;
+/*   border: 0.2em solid #fff; */
   border-radius: 3.5em;
   padding: 1em;
   display: flex;
@@ -169,10 +173,11 @@ body {
 /*   margin-bottom: 1em; */
     display: flex; 
 /*    align-items: center; */
-   background: #fff9d6;
-  border-radius: 40px;
-  padding: 15px;
-  gap: 20px;
+   background: #fee57e;
+  border: 0.2em solid #fff;
+  border-radius: 4em;
+  padding: 1.5em;
+  gap: 2em;
 /*  flex-direction: column;
   display: flex;
   gap: 20px; /* Відстань між колонками */
@@ -185,7 +190,7 @@ body {
 .social-links {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1em;
   margin-bottom: 1em;
 }
 
@@ -216,23 +221,26 @@ body {
  max-width: 8em;
   height: auto;
   border-radius: 0.5em;
+  cursor: pointer;
 /*   object-fit: cover; */
 }
 
 .gallery {
   display: flex;
   gap: 1em;
-  margin: 20px 0;
+  margin: 2em 0;
 }
 
 .gallery img {
   width: 48%;
   border-radius: 1.5em;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .footer {
-  background: #fff9d6;
+  background: #fee57e;
+  border: 0.2em solid #fff;
   border-radius: 3em;
   padding: 1em;
   text-align: center;
