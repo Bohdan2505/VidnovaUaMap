@@ -357,17 +357,21 @@ function addGeoJSONToMap(geoJSONByYear, map) {
     parseGeoJSONToMarkers(geoJSONByYear[year], marker_groups[year], year)
     
 
-        layerControl.addOverlay(dummyLayers[year], `  
+        layerControl.addOverlay(dummyLayers[year], `
+        <span style="position: relative;  bottom: 0.05em;">  
     <span style="
     display:inline-block;
     width: 1em;
     height: 1em;
-    margin-right: 0.4em;
     vertical-align: middle;
     background-color: ${year_markers_style[year]['fillColor']};
     border: 0.1em solid ${year_markers_style[year]['color']};
+    border-radius: 1em;
+    position: relative; 
+    bottom: 0.02em;
   "></span>
-  <span style="vertical-align: middle; font-size: 1.2em">Обміни. ${year} рік</span>
+  <span style="vertical-align: middle; font-size: 1.2em; position: relative;  top: 0.05em;">Обміни. ${year} рік</span>
+  </span>
 `);
         
         
