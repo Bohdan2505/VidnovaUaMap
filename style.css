@@ -48,8 +48,17 @@ body {
   color: #0e1e4a;*/
 }
 
+
+@media (min-width: 769px) {
+  
+  #fullscreen-popup .close-btn {
+  font-size:2.5em!important  
+  
+  }
+  
 .page-wrapper {
-  max-width: 400px;
+/*   width: 90%; */
+  max-width: 100em;
   width: 100%;
 /*   padding: 1em; */
   margin: 0 auto;
@@ -60,6 +69,42 @@ body {
 }
 
 
+
+.container {
+  width: 90%;
+  max-width: 40em;
+/*   margin: auto; */
+/*   padding: 1em; */
+  background: #ffd73a;
+  border-radius: 4em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.content-row {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.left-column {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.right-column {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+
 .top-header {
   background: white;
   border-bottom: 0.5em solid #ffd73a;
@@ -67,23 +112,257 @@ body {
   padding: 0.7em;
 }
 
-.container {
+.header {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 34%;
+  gap: 1em;
+  
+}
+
+.year-group {}
+
+.dates-small {
+  font-size: 1.5em;
+  padding-left:0.8em;
+  margin-top:-1.5em; /* size as font  */
+}
+
+.year {
+  font-size: 4em;
+   margin-top:-.5em;
+  font-weight: bold;
+  color: #000;
+   font-family: "VAGWorld";
+    padding: 0.1em;
+}
+
+
+
+
+
+.logo {
+  height: 100%;
+  max-height: 9em;
+}
+
+
+.location-dates {
+  background: #fee57e;
+/*   border: 0.2em solid #fff; */
+  border-radius: 4em;
+  padding: 0.8em 1.5em;
+  margin: 0.8em 0;
+  display: flex;
+/*   justify-content: space-between; */
+  gap: 1em;
+  align-items: center;
+ line-height: 1.2em;
+ font-size: 1.6em;
+    border: 0.13em solid #fff !important;
+}
+
+.location-settlement {
+   font-weight: bold;
+  font-size: 1.5em;
+color: #0e1e4a;}
+
+.location .icon {
+  margin-right: 0.8em;
+}
+
+.location .region {
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+}
+
+.dates {
+  text-align: center;
+  font-weight: bold;
+   font-family: "VAGWorld";
+}
+
+.main-photo img {
+   display: block;
+  margin-left: auto;
+  margin-right: auto;
+   margin-top: -10em; /* регулюй висоту наповзання */
+  z-index: 2;
+  position: relative; /* щоб працював z-index */
+  gap: 1em;
+    max-width: 90%;
+/*     max-height:90%; */
+  height: auto;
+  border-radius: 5em;
+/*   margin: 2em 0; */
+  cursor: pointer;
+/*   height: 50%; */
+}
+
+.organizer {
+  background: #fee57e;
+  border: 0.2em solid #fff;
+/*   border: 0.2em solid #fff; */
+  border-radius: 3.5em;
+  padding: 1em;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  
+  gap: 1em;
+
+  margin-bottom: 1em;
+}
+
+.organizer_content {
+    font-size: 1.8em;
+  font-weight: bold;
+    display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 1em;
+  
+}
+
+.organizer a {
+  
+  text-decoration:none; color: #0e1e4a;
+}
+
+.organizer img, .icon-img {
+  width:100%;
+  height:100%;
+  max-width: 1.7em;
+  max-height: 2.5em;
+}
+
+/*.container_links {
+  display: flex;
+  gap: 20px; 
+ align-items: flex-start;
+  flex-wrap: wrap; 
+}*/
+
+.links {
+/*   font-size: 18px; */
+/*   margin-bottom: 1em; */
+    display: flex; 
+/*    align-items: center; */
+   background: #fee57e;
+  border: 0.2em solid #fff;
+  border-radius: 4em;
+  padding: 1.5em;
+  gap: 2em;
+/*  flex-direction: column;
+  display: flex;
+  gap: 20px; /* Відстань між колонками */
+  align-items: flex-start;
+  flex-wrap: wrap; /* щоб адаптувалось на малих екранах */
+/*   text-decoration: none; */
+/*   color: inherit; */
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 1em;
+   font-size: 1.2em;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link img {
+  width: 2.3em;
+  height: 2.3em;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.link-photo {
+    display: flex;
+  align-items: center;
+}
+
+.link-photo img {
+  
+ max-width: 8em;
+  height: auto;
+  border-radius: 0.5em;
+  cursor: pointer;
+/*   object-fit: cover; */
+}
+
+.gallery {
+  display: flex;
+  gap: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  align-items: center;
+    justify-content: center;
+/*   margin-3: 1em; */
+}
+
+.gallery img {
+  width: 30%;
+  border-radius: 1.5em;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.footer {
+  background: #fee57e;
+  border: 0.2em solid #fff;
+  border-radius: 3em;
+  padding: 1em;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #0e1e4a;
+  display: block;
+}
+
+.footer a:hover {
+  text-decoration: none;
+}
+
+}
+
+
+
+@media (max-width: 768px) {
+  .content-row {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
+  
+  .container {
   max-width: 40em;
   margin: auto;
   padding: 1em;
   background: #ffd73a;
   border-radius: 4em;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  height: 100%;
-  max-height: 6.5em;
 }
 
 .year {
@@ -93,6 +372,50 @@ body {
    font-family: "VAGWorld";
     padding: 0.1em;
 }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer.right-footer {
+    justify-content: center;
+  }
+
+  .year-group {
+    align-items: flex-start;
+  }
+
+  .gallery {
+    flex-direction: column;
+  }
+
+  .gallery img {
+    width: 100% !important;
+  }
+  
+  
+.top-header {
+  background: white;
+  border-bottom: 0.5em solid #ffd73a;
+/*   border-radius: 0 0 40px 40px; */
+  padding: 0.7em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.logo {
+  height: 100%;
+  max-height: 6.5em;
+}
+
+
 
 .location-dates {
   background: #fee57e;
@@ -258,3 +581,9 @@ body {
 .footer a:hover {
   text-decoration: none;
 }
+
+  
+  
+} /* СТИЛІ ПІД ТЕЛЕФОН   */
+
+

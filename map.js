@@ -27,7 +27,7 @@ function parseDate(ukrDate) {
   return new Date(year, month - 1, day);
 }
 
-function formatUkrainianDateRange(startStr, endStr) {
+function formatUkrainianDateRange(startStr, endStr, insert_enter_bool) {
   const monthNames = [
     "січня", "лютого", "березня", "квітня", "травня", "червня",
     "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
@@ -46,11 +46,21 @@ function formatUkrainianDateRange(startStr, endStr) {
 
   if (startMonth === endMonth) {
     // Наприклад: 23–28\nсерпня
+    if (insert_enter_bool == true) {
+    rangeText = `<strong style="font-size:1.2em">${startDay}–${endDay}</strong> <br> <span>${monthNames[startMonth]}</span>`;}
+    else {
+      rangeText = `<strong style="font-size:1.2em">${startDay}–${endDay}</strong> <span>${monthNames[startMonth]}</span>`;}
       
-    rangeText = `<strong style="font-size:1.2em">${startDay}–${endDay}</strong> <br> <span>${monthNames[startMonth]}</span>`;
-  } else {
+    }
+  
+  else {
     // Наприклад: 28 серпня – 1 вересня
-    rangeText = `<strong style="font-size:1.2em">${startDay}</strong> <span>${monthNames[startMonth]}</span> – <br><strong style="font-size:1.2em">${endDay}</strong> <span>${monthNames[endMonth]}</span>`;
+    
+     if (insert_enter_bool == true) {
+    rangeText = `<strong style="font-size:1.2em">${startDay}</strong> <span>${monthNames[startMonth]}</span> – <br><strong style="font-size:1.2em">${endDay}</strong> <span>${monthNames[endMonth]}</span>`;}
+    else {
+      rangeText = `<strong style="font-size:1.2em">${startDay}</strong> <span>${monthNames[startMonth]}</span> – <strong style="font-size:1.2em">${endDay}</strong> <span>${monthNames[endMonth]}</span>`;}
+    
   }
 
   // console.log(startStr, endStr, startDate, endDate, year,  rangeText)
@@ -70,8 +80,188 @@ function check_string_not_empty(string) {
 
 
 function openInfoWindowMobile(feature) {
+  
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    // Екран ширший або рівний 768px
+    console.log('Ширина вікна ≥ 768px');
+
     
-    const result = formatUkrainianDateRange(feature.properties.Begin_date, feature.properties.End_date);
+    const result = formatUkrainianDateRange(feature.properties.Begin_date, feature.properties.End_date, false);
+ let year = result.year;
+ let data_range = result.rangeText;
+    
+    let info_window_html = `
+  <div class="page-wrapper desktop-layout">
+  <div class="top-header">
+          <div class="header">
+
+              <img src="logo.png" alt="ВідНОВА:UA" class="logo" />
+              <div class="year-group">
+                <div class="year"><span>${year}</span></div>
+                <div class="dates-small"><span>${data_range}</span></div>
+
+            </div>
+          </div>
+        </div>
+    <div class="content-row">
+      <!-- Ліва колонка -->
+      <div class="left-column">
+        
+
+        <div class="container">
+          <section class="location-dates">
+           <img src="images/icon-location.png" alt="Локація" class="icon-img" /> 
+            <div class="location">
+            
+              <span  class="location-settlement">${feature.properties.Settlement.trim()},</span><br/>
+              <div class="region">${feature.properties.Region.trim()} область</div>
+            </div>
+          </section>
+`
+
+
+if (check_string_not_empty(feature.properties.Partner_Name)) {
+  if (check_string_not_empty(feature.properties.Partner_link)) {
+         info_window_html += `<section class="organizer">
+         <div class="organizer_content">
+           <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" /></a>
+            <div>
+        <a href="${feature.properties.Partner_link}" target="_blank">${feature.properties.Partner_Name}<br />
+        організовували обмін</a>
+      </div>
+      </div>
+    </section>`
+   }
+  else {
+    
+    info_window_html += `<section class="organizer">
+      <img src="images/icon-group.png" alt="Організатор" class="icon-img" />
+      <div>
+        ${feature.properties.Partner_Name}<br />
+        організовували обмін</a>
+      </div>
+    </section>`
+  }
+}
+
+if (check_string_not_empty(feature.properties.Official_site) == true || check_string_not_empty(feature.properties.Instagram) == true || check_string_not_empty(feature.properties.Facebook) == true) {
+  
+  info_window_html +=  `
+
+          <section class="info-block">
+            <section class="links">
+              <span style="font-size:1.8em">Дізнатися більше про обмін:</span>
+              <div class="social-links">`
+              
+     if (check_string_not_empty(feature.properties.Official_site) == true) {
+      
+      info_window_html += `<a href="${feature.properties.Official_site}" target="_blank" class="link">
+          <img src="images/icon-site.png" alt="Site" />
+          <span>на сайті</span>
+        </a>`
+    }
+    
+    
+    if (check_string_not_empty(feature.properties.Instagram) == true) {
+      
+      info_window_html += `<a href="${feature.properties.Instagram}" target="_blank" class="link">
+          <img src="images/icon-instagram.png" alt="Instagram" />
+          <span>в Instagram</span>
+        </a>`
+    }
+    
+    if (check_string_not_empty(feature.properties.Facebook) == true) {
+      
+      info_window_html += `<a href="${feature.properties.Facebook}" target="_blank" class="link">
+          <img src="images/icon-facebook.png" alt="Facebook" />
+          <span>у Facebook</span>
+        </a>`
+    }
+    
+    info_window_html += `</div>
+            </section>
+          </section>`
+    
+    
+}
+              
+      info_window_html += `  </div>
+      </div>`
+      
+      
+    info_window_html += ` 
+      <!-- Права колонка -->
+      <div class="right-column">
+      `
+      
+      if (check_string_not_empty(feature.properties.Link_photo_4_width)) {
+    
+  info_window_html += `<section class="main-photo">
+      <img src="${feature.properties.Link_photo_4_width}" alt="Групове фото" onclick="view_fullscreen('${feature.properties.Link_photo_4_width}')" />
+    </section>`
+}
+
+
+        if (check_string_not_empty(feature.properties.Link_photo_1) == true || check_string_not_empty(feature.properties.Link_photo_2) == true || check_string_not_empty(feature.properties.Link_photo_3) == true) {
+  
+  info_window_html += `<section class="gallery">`
+  
+  if (check_string_not_empty(feature.properties.Link_photo_1) == true) {
+      
+      info_window_html += `<img src="${feature.properties.Link_photo_1}" alt="Фотографія 1" onclick="view_fullscreen('${feature.properties.Link_photo_1}')" />`
+    }
+      
+       if (check_string_not_empty(feature.properties.Link_photo_2) == true) {
+      
+      info_window_html += `<img src="${feature.properties.Link_photo_2}" alt="Фотографія 2" onclick="view_fullscreen('${feature.properties.Link_photo_2}')" />`
+    }
+    
+     if (check_string_not_empty(feature.properties.Link_photo_2) == true) {
+      
+      info_window_html += `<img src="${feature.properties.Link_photo_3}" alt="Фотографія 3" onclick="view_fullscreen('${feature.properties.Link_photo_3}')" />`
+    }
+  
+    info_window_html += `</section>`
+  
+}
+
+
+  if (check_string_not_empty(feature.properties.Google_drive_link) == true) {
+      
+      info_window_html += ` <footer class="footer">
+      <a href="${feature.properties.Google_drive_link}" target="_blank">
+        переглянути фото з обміну
+      </a>
+    </footer>`
+    }
+    
+info_window_html += `
+      </div>
+    </div>
+  </div>
+`
+    
+
+  
+
+    return info_window_html
+    
+} else {
+
+  
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+//   ~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+    const result = formatUkrainianDateRange(feature.properties.Begin_date, feature.properties.End_date, true);
  let year = result.year;
  let data_range = result.rangeText;
     
@@ -185,7 +375,7 @@ if (check_string_not_empty(feature.properties.Link_photo_1) == true || check_str
       info_window_html += `<img src="${feature.properties.Link_photo_1}" alt="Фотографія 1" onclick="view_fullscreen('${feature.properties.Link_photo_1}')" />`
     }
       
-       if (check_string_not_empty(feature.properties.Link_photo_1) == true) {
+       if (check_string_not_empty(feature.properties.Link_photo_2) == true) {
       
       info_window_html += `<img src="${feature.properties.Link_photo_2}" alt="Фотографія 2" onclick="view_fullscreen('${feature.properties.Link_photo_2}')" />`
     }
@@ -211,6 +401,7 @@ if (check_string_not_empty(feature.properties.Link_photo_1) == true || check_str
    
 
     return info_window_html
+}
 }
         
 
