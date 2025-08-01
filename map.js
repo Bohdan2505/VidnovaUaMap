@@ -81,9 +81,9 @@ function check_string_not_empty(string) {
 
 function openInfoWindowMobile(feature) {
   
-  if (window.matchMedia('(min-width: 768px)').matches) {
+  if (window.matchMedia('(min-width: 769px)').matches) {
     // Екран ширший або рівний 768px
-    console.log('Ширина вікна ≥ 768px');
+    // console.log('Ширина вікна ≥ 768px');
 
     
     const result = formatUkrainianDateRange(feature.properties.Begin_date, feature.properties.End_date, false);
@@ -95,7 +95,7 @@ function openInfoWindowMobile(feature) {
   <div class="top-header">
           <div class="header">
 
-              <img src="logo.png" alt="ВідНОВА:UA" class="logo" />
+              <img src="images/logo.png" alt="ВідНОВА:UA" class="logo" />
               <div class="year-group">
                 <div class="year"><span>${year}</span></div>
                 <div class="dates-small"><span>${data_range}</span></div>

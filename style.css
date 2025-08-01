@@ -348,21 +348,43 @@ color: #0e1e4a;}
 
 
 @media (max-width: 768px) {
-  .content-row {
-    flex-direction: column;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-  }
   
-  .container {
+.page-wrapper {
+  max-width: 400px;
+  width: 100%;
+/*   padding: 1em; */
+  margin: 0 auto;
+  background: rgba(253, 215, 56, 1.0);  
+  border-radius: 3em;
+  overflow: hidden;
+  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.1);
+}
+
+
+.top-header {
+  background: white;
+  border-bottom: 0.5em solid #ffd73a;
+/*   border-radius: 0 0 40px 40px; */
+  padding: 0.7em;
+}
+
+.container {
   max-width: 40em;
   margin: auto;
   padding: 1em;
   background: #ffd73a;
   border-radius: 4em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 100%;
+  max-height: 6.5em;
 }
 
 .year {
@@ -372,50 +394,6 @@ color: #0e1e4a;}
    font-family: "VAGWorld";
     padding: 0.1em;
 }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer.right-footer {
-    justify-content: center;
-  }
-
-  .year-group {
-    align-items: flex-start;
-  }
-
-  .gallery {
-    flex-direction: column;
-  }
-
-  .gallery img {
-    width: 100% !important;
-  }
-  
-  
-.top-header {
-  background: white;
-  border-bottom: 0.5em solid #ffd73a;
-/*   border-radius: 0 0 40px 40px; */
-  padding: 0.7em;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
-
-.logo {
-  height: 100%;
-  max-height: 6.5em;
-}
-
-
 
 .location-dates {
   background: #fee57e;
@@ -581,8 +559,6 @@ color: #0e1e4a;}
 .footer a:hover {
   text-decoration: none;
 }
-
-  
   
 } /* СТИЛІ ПІД ТЕЛЕФОН   */
 
