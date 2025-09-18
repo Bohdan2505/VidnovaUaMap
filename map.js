@@ -124,7 +124,7 @@ if (check_string_not_empty(feature.properties.Partner_Name)) {
   if (check_string_not_empty(feature.properties.Partner_link)) {
          info_window_html += `<section class="organizer">
          <div class="organizer_content">
-           <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" /></a>
+           <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" style="max-width: 2.5em;" /></a>
             <div>
         <a href="${feature.properties.Partner_link}" target="_blank">${feature.properties.Partner_Name}<br />
         організовували обмін</a>
