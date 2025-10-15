@@ -126,8 +126,8 @@ if (check_string_not_empty(feature.properties.Partner_Name)) {
          <div class="organizer_content">
            <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" style="max-width: 2.5em;" /></a>
             <div>
-        <a href="${feature.properties.Partner_link}" target="_blank">${feature.properties.Partner_Name}<br />
-        організувала обмін</a>
+        <a href="${feature.properties.Partner_link}" target="_blank">Обмін організовано: <br /> ${feature.properties.Partner_Name}
+        </a>
       </div>
       </div>
     </section>`
@@ -137,8 +137,8 @@ if (check_string_not_empty(feature.properties.Partner_Name)) {
     info_window_html += `<section class="organizer">
       <img src="images/icon-group.png" alt="Організатор" class="icon-img" />
       <div>
-        ${feature.properties.Partner_Name}<br />
-        організувала обмін</a>
+        Обмін організовано: <br />${feature.properties.Partner_Name}
+        </a>
       </div>
     </section>`
   }
@@ -302,8 +302,7 @@ if (check_string_not_empty(feature.properties.Partner_Name)) {
      info_window_html += `<section class="organizer">
       <a href="${feature.properties.Partner_link}" target="_blank"><img src="images/icon-group.png" alt="Організатор" class="icon-img" /></a>
       <div>
-        <a href="${feature.properties.Partner_link}" target="_blank">${feature.properties.Partner_Name}<br />
-        організувала обмін</a>
+        <a href="${feature.properties.Partner_link}" target="_blank">Обмін організовано: <br />${feature.properties.Partner_Name}</a>
       </div>
     </section>`
     
@@ -313,8 +312,8 @@ if (check_string_not_empty(feature.properties.Partner_Name)) {
     info_window_html += `<section class="organizer">
       <img src="images/icon-group.png" alt="Організатор" class="icon-img" />
       <div>
-        ${feature.properties.Partner_Name}<br />
-        організувала обмін</a>
+        Обмін організовано: <br />${feature.properties.Partner_Name}
+        </a>
       </div>
     </section>`
   }
