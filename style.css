@@ -49,7 +49,7 @@ body {
 }
 
 
-@media (min-width: 769px) {
+@media (min-width: 769px), (orientation: landscape)  {
   
   #fullscreen-popup .close-btn {
   font-size:2.5em!important  
